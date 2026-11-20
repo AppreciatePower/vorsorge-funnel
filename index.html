@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Individuelle Vorsorgeangebote für Kinder und Erwachsene."
+  >
+
+  <title>Individuelle Vorsorgeangebote</title>
+
+  <style>
+    :root {
+      --background: #f2f5fb;
+      --background-secondary: #e6eaf1;
+      --card-background: #f8faff;
+      --navy: #07172b;
+      --navy-light: #21486f;
+      --text: #173b61;
+      --green: #389625;
+      --blue: #2869ed;
+      --border: #244c74;
+      --input-border: #bac4d1;
+      --white: #ffffff;
+      --shadow: 0 12px 25px rgba(12, 34, 58, 0.13);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+      color: var(--navy);
+      background: var(--background);
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a,
+    .information-card {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    .information-card:focus-visible {
+      outline: 4px solid rgba(40, 105, 237, 0.25);
+      outline-offset: 4px;
+    }
+
+    .funnel-section {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      scroll-snap-align: start;
+    }
+
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 72px;
+      padding: 18px 42px;
+      border: 0;
+      border-radius: 13px;
+      background: var(--navy-light);
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 750;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 13px 26px rgba(8, 31, 55, 0.17);
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-3px);
+      background: #173c62;
+      box-shadow: 0 17px 32px rgba(8, 31, 55, 0.22);
+    }
+
+    .primary-button:active {
+      transform: translateY(0);
+    }
+
+    /* =========================
+       SEITE 1: STARTBEREICH
+    ========================= */
+
+    .hero-section {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--background);
+    }
+
+    .hero-content {
+      position: relative;
+      width: min(1500px, calc(100% - 90px));
+      margin: 0 auto;
+      padding: 65px 0 55px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #132238;
+      font-size: clamp(1rem, 1.25vw, 1.45rem);
+      letter-spacing: 0.01em;
+    }
+
+    .hero-title {
+      max-width: 1370px;
+      margin: 100px auto 25px;
+      color: var(--navy);
+      font-size: clamp(4rem, 7.2vw, 8.6rem);
+      font-weight: 850;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-title .accent {
+      color: var(--navy-light);
+    }
+
+    .hero-subtitle {
+      margin: 30px auto 0;
+      color: var(--text);
+      font-size: clamp(1.2rem, 1.9vw, 2.05rem);
+      letter-spacing: 0.025em;
+    }
+
+    .hero-button-wrap {
+      margin-top: 100px;
+    }
+
+    /* =========================
+       SEITE 2: ANGEBOTE
+    ========================= */
+
+    .offers-section {
+      display: flex;
+      align-items: center;
+      background: var(--background-secondary);
+    }
+
+    .offers-content {
+      width: min(1650px, calc(100% - 80px));
+      margin: 0 auto;
+      padding: 42px 0;
+      text-align: center;
+    }
+
+    .section-title {
+      color: var(--navy);
+      font-size: clamp(2.9rem, 4.5vw, 5.2rem);
+      font-weight: 850;
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+    }
+
+    .section-title .accent {
+      color: var(--navy-light);
+    }
+
+    .section-subtitle {
+      margin-top: 20px;
+      color: #15253a;
+      font-size: clamp(1rem, 1.25vw, 1.5rem);
+      letter-spacing: 0.025em;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 60px;
+      margin-top: 56px;
+    }
+
+    .information-card {
+      min-height: 270px;
+      padding: 34px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card-background);
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 7px 12px rgba(8, 33, 60, 0.08);
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease,
+        background-color 180ms ease;
+    }
+
+    .information-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .information-card.selected {
+      padding: 32px;
+      border: 4px solid var(--green);
+      background: #fbfff9;
+      box-shadow: 0 8px 14px rgba(41, 132, 29, 0.16);
+    }
+
+    .card-title {
+      margin-bottom: 25px;
+      color: var(--navy);
+      font-size: clamp(1.4rem, 1.8vw, 2rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .card-text {
+      color: var(--text);
+      font-size: clamp(1.04rem, 1.3vw, 1.5rem);
+      line-height: 1.5;
+    }
+
+    .card-text strong {
+      font-weight: 800;
+    }
+
+    .offers-button-wrap {
+      margin-top: 70px;
+    }
+
+    /* =========================
+       SEITE 3: KONTAKTFORMULAR
+    ========================= */
+
+    .contact-section {
+      display: flex;
+      align-items: center;
+      background: var(--background);
+    }
+
+    .contact-content {
+      width: min(1720px, calc(100% - 100px));
+      margin: 0 auto;
+      padding: 70px 0;
+      display: grid;
+      grid-template-columns:
+        minmax(340px, 0.85fr)
+        minmax(560px, 1.35fr);
+      gap: 120px;
+      align-items: center;
+    }
+
+    .contact-heading {
+      max-width: 650px;
+      color: var(--navy);
+      font-size: clamp(3.3rem, 5.2vw, 6rem);
+      font-weight: 850;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .contact-heading .accent {
+      color: var(--navy-light);
+    }
+
+    .contact-intro {
+      max-width: 660px;
+      margin-top: 30px;
+      color: #151d29;
+      font-size: clamp(1.1rem, 1.45vw, 1.55rem);
+      line-height: 1.55;
+    }
+
+    .contact-details {
+      margin-top: 28px;
+      display: grid;
+      gap: 29px;
+      color: #171b21;
+      font-size: clamp(1rem, 1.15vw, 1.35rem);
+    }
+
+    .contact-details strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 1.08em;
+    }
+
+    .contact-details a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .contact-details a:hover {
+      color: var(--navy-light);
+      text-decoration: underline;
+    }
+
+    .contact-form {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 7px;
+      color: #171b21;
+      font-size: clamp(1rem, 1.15vw, 1.32rem);
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 76px;
+      padding: 18px 24px;
+      border: 2px solid var(--input-border);
+      border-radius: 15px;
+      outline: none;
+      background: var(--white);
+      color: var(--navy);
+      font-size: clamp(1rem, 1.22vw, 1.38rem);
+      transition:
+        border-color 170ms ease,
+        box-shadow 170ms ease;
+    }
+
+    .form-control::placeholder {
+      color: #8a8a8a;
+      opacity: 1;
+    }
+
+    .form-control:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 5px rgba(40, 105, 237, 0.12);
+    }
+
+    textarea.form-control {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 2px 0 24px;
+      color: #344153;
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+
+    .consent-row input {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+      accent-color: var(--blue);
+    }
+
+    .submit-button {
+      min-width: 285px;
+      background: var(--blue);
+    }
+
+    .submit-button:hover {
+      background: #1558dc;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 20px;
+      padding: 17px 20px;
+      border: 1px solid #60a851;
+      border-radius: 12px;
+      background: #effbea;
+      color: #1d6514;
+      font-weight: 650;
+    }
+
+    .form-message.visible {
+      display: block;
+    }
+
+    /* =========================
+       RESPONSIVE DARSTELLUNG
+    ========================= */
+
+    @media (max-width: 1200px) {
+      .cards-grid {
+        gap: 30px;
+      }
+
+      .contact-content {
+        grid-template-columns: 0.9fr 1.2fr;
+        gap: 65px;
+      }
+    }
+
+    @media (max-width: 930px) {
+      html {
+        scroll-snap-type: none;
+      }
+
+      .funnel-section {
+        min-height: auto;
+      }
+
+      .hero-section {
+        min-height: 100svh;
+      }
+
+      .hero-content {
+        width: min(100% - 40px, 760px);
+        padding: 65px 0 50px;
+      }
+
+      .hero-eyebrow {
+        position: static;
+        text-align: left;
+      }
+
+      .hero-title {
+        margin-top: 90px;
+        font-size: clamp(3rem, 11vw, 5.8rem);
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+      }
+
+      .offers-content {
+        width: min(100% - 40px, 760px);
+        padding: 75px 0;
+      }
+
+      .contact-content {
+        width: min(100% - 40px, 760px);
+        padding: 85px 0;
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .primary-button {
+        width: 100%;
+        min-height: 64px;
+        padding: 16px 24px;
+        font-size: 1.06rem;
+      }
+
+      .hero-content {
+        width: calc(100% - 32px);
+        padding-top: 35px;
+      }
+
+      .hero-title {
+        margin-top: 75px;
+        font-size: clamp(2.75rem, 14vw, 4.2rem);
+        line-height: 1.01;
+      }
+
+      .hero-subtitle {
+        font-size: 1.08rem;
+        line-height: 1.55;
+      }
+
+      .hero-button-wrap {
+        margin-top: 70px;
+      }
+
+      .offers-content {
+        width: calc(100% - 30px);
+        padding: 65px 0;
+      }
+
+      .section-title {
+        font-size: clamp(2.5rem, 12vw, 3.7rem);
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 38px;
+      }
+
+      .information-card {
+        min-height: auto;
+        padding: 27px 24px;
+      }
+
+      .information-card.selected {
+        padding: 25px 22px;
+      }
+
+      .contact-content {
+        width: calc(100% - 32px);
+        padding: 65px 0;
+        gap: 50px;
+      }
+
+      .contact-heading {
+        font-size: clamp(3rem, 15vw, 4.5rem);
+      }
+
+      .form-control {
+        min-height: 66px;
+        padding: 15px 17px;
+        border-radius: 12px;
+      }
+
+      .submit-button {
+        min-width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       SEITE 1
+  ========================== -->
+
+  <section class="funnel-section hero-section" id="start">
+    <div class="hero-content">
+
+      <p class="hero-eyebrow">
+        Individuell an Ihre Bedürfnisse angepasst
+      </p>
+
+      <h1 class="hero-title">
+        Durchatmen!<br>
+        Wir <span class="accent">kümmern</span> uns um<br>
+        den Rest
+      </h1>
+
+      <p class="hero-subtitle">
+        Von der Zahnspange bis zur Naturheilkunde –
+        das Beste für Ihre Kinder und Sie
+      </p>
+
+      <div class="hero-button-wrap">
+        <a class="primary-button" href="#angebote">
+          Mehr erfahren
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       SEITE 2
+  ========================== -->
+
+  <section class="funnel-section offers-section" id="angebote">
+    <div class="offers-content">
+
+      <h2 class="section-title">
+        Unsere
+        <span class="accent">individuellen</span>
+        Vorsorgeangebote
+      </h2>
+
+      <p class="section-subtitle">
+        Welche Themen sind für Sie relevant?
+      </p>
+
+      <div class="cards-grid">
+
+        <article
+          class="information-card selected"
+          tabindex="0"
+          role="checkbox"
+          aria-checked="true"
+          data-topic="Kindervorsorge"
+        >
+          <h3 class="card-title">
+            Kindervorsorge
+          </h3>
+
+          <p class="card-text">
+            <strong>
+              Einzigartig in der Versicherungsbranche!
+            </strong>
+            Verschiedene Kombinationsmöglichkeiten
+            kindgerechter Vorsorgetarife.
+          </p>
+        </article>
+
+        <article
+          class="information-card"
+          tabindex="0"
+          role="checkbox"
+          aria-checked="false"
+          data-topic="Brille"
+        >
+          <h3 class="card-title">
+            Brille
+          </h3>
+
+          <p class="card-text">
+            <strong>
+              Gutes Sehen ist Lebensqualität.
+            </strong>
+            Sichern Sie sich finanziell Ihre nächste Brille,
+            ab 6,59 € im Monat.
+          </p>
+        </article>
+
+        <article
+          class="information-card"
+          tabindex="0"
+          role="checkbox"
+          aria-checked="false"
+          data-topic="Zahnarzt"
+        >
+          <h3 class="card-title">
+            Zahnarzt
+          </h3>
+
+          <p class="card-text">
+            Schließen Sie die immer
+            <strong>
+              größer werdenden Leistungslücken
+            </strong>
+            Ihrer gesetzlichen Krankenversicherung.
+          </p>
+        </article>
+
+        <article
+          class="information-card"
+          tabindex="0"
+          role="checkbox"
+          aria-checked="false"
+          data-topic="Naturheilkunde"
+        >
+          <h3 class="card-title">
+            Naturheilkunde
+          </h3>
+
+          <p class="card-text">
+            Sie möchten auch von der Behandlung eines
+            <strong>Heilpraktikers</strong>
+            profitieren? Bereits ab 6,24 € im Monat.
+          </p>
+        </article>
+
+        <article
+          class="information-card"
+          tabindex="0"
+          role="checkbox"
+          aria-checked="false"
+          data-topic="Privatarztbehandlung"
+        >
+          <h3 class="card-title">
+            Privatarztbehandlung
+          </h3>
+
+          <p class="card-text">
+            Genießen Sie im Krankenhaus die
+            <strong>bessere Unterbringung</strong>
+            und die Behandlung durch den
+            <strong>Chefarzt</strong>,
+            ab 9,70 € im Monat.
+          </p>
+        </article>
+
+        <article
+          class="information-card"
+          tabindex="0"
+          role="checkbox"
+          aria-checked="false"
+          data-topic="Zukunftsvorsorge"
+        >
+          <h3 class="card-title">
+            Zukunftsvorsorge
+          </h3>
+
+          <p class="card-text">
+            Profitieren Sie von
+            <strong>staatlicher Förderung</strong>
+            und möglichen Steuervorteilen bei Ihrem
+            individuellen ETF-Sparplan.
+          </p>
+        </article>
+
+      </div>
+
+      <div class="offers-button-wrap">
+        <a class="primary-button" href="#kontakt">
+          Jetzt beraten lassen
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       SEITE 3
+  ========================== -->
+
+  <section class="funnel-section contact-section" id="kontakt">
+    <div class="contact-content">
+
+      <div class="contact-copy">
+
+        <h2 class="contact-heading">
+          Jetzt Angebot<br>
+          <span class="accent">anfragen</span>
+        </h2>
+
+        <p class="contact-intro">
+          Füllen Sie kurz die Felder aus.
+          Wir melden uns schnellstmöglich bei Ihnen.
+        </p>
+
+        <div class="contact-details">
+
+          <div>
+            <strong>Telefon</strong>
+
+            <!-- Telefonnummer an beiden Stellen ändern -->
+            <a href="tel:+491231231234">
+              123-123-1234
+            </a>
+          </div>
+
+          <div>
+            <strong>E-Mail</strong>
+
+            <!-- E-Mail-Adresse an beiden Stellen ändern -->
+            <a href="mailto:email@email.com">
+              email@email.com
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <form class="contact-form" id="contactForm">
+
+        <div class="form-group">
+          <label class="form-label" for="fullName">
+            Vor- und Nachname*
+          </label>
+
+          <input
+            class="form-control"
+            id="fullName"
+            name="fullName"
+            type="text"
+            placeholder="Max Mustermann"
+            autocomplete="name"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">
+            Telefonnummer*
+          </label>
+
+          <input
+            class="form-control"
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="0123 4567 8910"
+            autocomplete="tel"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">
+            E-Mail*
+          </label>
+
+          <input
+            class="form-control"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="max.mustermann@muster.de"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="topics">
+            Welche Themen sind Ihnen wichtig?
+          </label>
+
+          <textarea
+            class="form-control"
+            id="topics"
+            name="topics"
+            placeholder="Wählen Sie ein oder mehrere Themen aus."
+            readonly
+          ></textarea>
+        </div>
+
+        <label class="consent-row">
+          <input
+            type="checkbox"
+            id="privacy"
+            name="privacy"
+            required
+          >
+
+          <span>
+            Ich stimme zu, dass meine Angaben zur Bearbeitung
+            meiner Anfrage verwendet werden. Die Einwilligung
+            kann jederzeit widerrufen werden.
+          </span>
+        </label>
+
+        <button
+          class="primary-button submit-button"
+          type="submit"
+        >
+          Angebot anfordern
+        </button>
+
+        <div
+          class="form-message"
+          id="formMessage"
+          role="status"
+          aria-live="polite"
+        >
+          Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+
+
+  <script>
+    (() => {
+      "use strict";
+
+      /*
+        3 Minuten Inaktivität:
+        3 Minuten × 60 Sekunden × 1.000 Millisekunden
+      */
+      const INACTIVITY_TIME = 3 * 60 * 1000;
+
+      /*
+        Nach dem Abschicken wird die Bestätigung
+        1,5 Sekunden angezeigt.
+      */
+      const FORM_RESET_DELAY = 1500;
+
+      const cards =
+        document.querySelectorAll(".information-card");
+
+      const topicsField =
+        document.getElementById("topics");
+
+      const contactForm =
+        document.getElementById("contactForm");
+
+      const formMessage =
+        document.getElementById("formMessage");
+
+      let inactivityTimer = null;
+      let formWasSubmitted = false;
+
+
+      /*
+        Verhindert, dass der Browser nach einem Neustart
+        wieder an die vorherige Position springt.
+      */
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+
+      /*
+        Setzt die Seite an den Anfang zurück.
+      */
+      function moveToTop() {
+        if (window.location.hash) {
+          history.replaceState(
+            null,
+            "",
+            window.location.pathname +
+              window.location.search
+          );
+        }
+
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "auto"
+        });
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }
+
+
+      /*
+        Lädt den Funnel neu.
+
+        Der Hash #angebote oder #kontakt wird entfernt,
+        damit nach dem Neustart Seite 1 angezeigt wird.
+      */
+      function reloadFunnel() {
+        try {
+          sessionStorage.setItem(
+            "openFunnelAtTop",
+            "true"
+          );
+        } catch (error) {
+          console.warn(
+            "Session-Speicher nicht verfügbar:",
+            error
+          );
+        }
+
+        if (window.location.hash) {
+          history.replaceState(
+            null,
+            "",
+            window.location.pathname +
+              window.location.search
+          );
+        }
+
+        window.location.reload();
+      }
+
+
+      /*
+        Auch bei einer Wiederherstellung aus dem
+        Browser-Zwischenspeicher nach oben springen.
+      */
+      window.addEventListener("pageshow", () => {
+        let shouldMoveToTop = false;
+
+        try {
+          shouldMoveToTop =
+            sessionStorage.getItem(
+              "openFunnelAtTop"
+            ) === "true";
+
+          if (shouldMoveToTop) {
+            sessionStorage.removeItem(
+              "openFunnelAtTop"
+            );
+          }
+        } catch (error) {
+          console.warn(
+            "Session-Speicher nicht verfügbar:",
+            error
+          );
+        }
+
+        if (
+          shouldMoveToTop ||
+          !window.location.hash
+        ) {
+          requestAnimationFrame(moveToTop);
+        }
+      });
+
+
+      /*
+        Setzt den 3-Minuten-Timer zurück,
+        sobald eine Aktivität erkannt wird.
+      */
+      function resetInactivityTimer() {
+        if (formWasSubmitted) {
+          return;
+        }
+
+        window.clearTimeout(inactivityTimer);
+
+        inactivityTimer = window.setTimeout(
+          reloadFunnel,
+          INACTIVITY_TIME
+        );
+      }
+
+
+      /*
+        Diese Aktivitäten setzen den Timer zurück.
+      */
+      const activityEvents = [
+        "pointerdown",
+        "pointermove",
+        "keydown",
+        "scroll",
+        "input",
+        "focus"
+      ];
+
+      activityEvents.forEach((eventName) => {
+        window.addEventListener(
+          eventName,
+          resetInactivityTimer,
+          {
+            passive: true
+          }
+        );
+      });
+
+
+      /*
+        Beim Zurückkehren auf den Browser-Tab
+        wird der Timer neu gestartet.
+      */
+      document.addEventListener(
+        "visibilitychange",
+        () => {
+          if (!document.hidden) {
+            resetInactivityTimer();
+          }
+        }
+      );
+
+
+      /*
+        Schreibt ausgewählte Themen automatisch
+        in das Formular.
+      */
+      function updateSelectedTopics() {
+        if (!topicsField) {
+          return;
+        }
+
+        const selectedTopics = Array.from(
+          document.querySelectorAll(
+            ".information-card.selected"
+          )
+        )
+          .map((card) => card.dataset.topic)
+          .filter(Boolean);
+
+        topicsField.value =
+          selectedTopics.join(", ");
+
+        topicsField.placeholder =
+          selectedTopics.length
+            ? ""
+            : "Wählen Sie ein oder mehrere Themen aus.";
+      }
+
+
+      /*
+        Schaltet eine Informationskachel an oder aus.
+      */
+      function toggleCard(card) {
+        card.classList.toggle("selected");
+
+        const isSelected =
+          card.classList.contains("selected");
+
+        card.setAttribute(
+          "aria-checked",
+          String(isSelected)
+        );
+
+        updateSelectedTopics();
+        resetInactivityTimer();
+      }
+
+
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          toggleCard(card);
+        });
+
+        card.addEventListener(
+          "keydown",
+          (event) => {
+            if (
+              event.key === "Enter" ||
+              event.key === " "
+            ) {
+              event.preventDefault();
+              toggleCard(card);
+            }
+          }
+        );
+      });
+
+
+      /*
+        Formularverarbeitung.
+      */
+      if (contactForm) {
+        contactForm.addEventListener(
+          "submit",
+          (event) => {
+            event.preventDefault();
+
+            /*
+              Pflichtfelder überprüfen.
+            */
+            if (!contactForm.checkValidity()) {
+              contactForm.reportValidity();
+              resetInactivityTimer();
+              return;
+            }
+
+            /*
+              Inaktivitätstimer anhalten.
+            */
+            formWasSubmitted = true;
+
+            window.clearTimeout(
+              inactivityTimer
+            );
+
+            /*
+              Bestätigung anzeigen.
+            */
+            if (formMessage) {
+              formMessage.classList.add(
+                "visible"
+              );
+
+              formMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+              });
+            }
+
+            /*
+              Hinweis:
+              Hier muss später ein echter
+              Formularversand eingebaut werden.
+
+              Aktuell wird nur die Bestätigung
+              angezeigt und danach neu geladen.
+            */
+
+            window.setTimeout(
+              reloadFunnel,
+              FORM_RESET_DELAY
+            );
+          }
+        );
+      }
+
+
+      /*
+        Website initialisieren.
+      */
+      updateSelectedTopics();
+      resetInactivityTimer();
+    })();
+  </script>
+
+</body>
+</html>
