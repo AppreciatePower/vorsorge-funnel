@@ -2,7 +2,11 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
@@ -24,6 +28,12 @@
       --border: #244c74;
       --input-border: #bac4d1;
       --white: #ffffff;
+      --success-background: #effbea;
+      --success-border: #60a851;
+      --success-text: #1d6514;
+      --error-background: #fff1f1;
+      --error-border: #c94b4b;
+      --error-text: #8c2525;
       --shadow: 0 12px 25px rgba(12, 34, 58, 0.13);
       --radius: 20px;
     }
@@ -42,6 +52,7 @@
     body {
       min-width: 320px;
       margin: 0;
+      overflow-x: hidden;
       font-family:
         Inter,
         -apple-system,
@@ -100,7 +111,8 @@
       transition:
         transform 180ms ease,
         box-shadow 180ms ease,
-        background-color 180ms ease;
+        background-color 180ms ease,
+        opacity 180ms ease;
     }
 
     .primary-button:hover {
@@ -113,9 +125,16 @@
       transform: translateY(0);
     }
 
-    /* =========================
-       SEITE 1: STARTBEREICH
-    ========================= */
+    .primary-button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ========================================
+       SEITE 1
+    ======================================== */
 
     .hero-section {
       display: flex;
@@ -166,9 +185,9 @@
       margin-top: 100px;
     }
 
-    /* =========================
-       SEITE 2: ANGEBOTE
-    ========================= */
+    /* ========================================
+       SEITE 2
+    ======================================== */
 
     .offers-section {
       display: flex;
@@ -259,9 +278,9 @@
       margin-top: 70px;
     }
 
-    /* =========================
-       SEITE 3: KONTAKTFORMULAR
-    ========================= */
+    /* ========================================
+       SEITE 3
+    ======================================== */
 
     .contact-section {
       display: flex;
@@ -327,6 +346,7 @@
     }
 
     .contact-form {
+      position: relative;
       width: 100%;
     }
 
@@ -371,6 +391,11 @@
       resize: vertical;
     }
 
+    textarea.form-control[readonly] {
+      cursor: default;
+      background: #fbfcff;
+    }
+
     .consent-row {
       display: flex;
       align-items: flex-start;
@@ -402,20 +427,37 @@
       display: none;
       margin-top: 20px;
       padding: 17px 20px;
-      border: 1px solid #60a851;
+      border: 1px solid var(--success-border);
       border-radius: 12px;
-      background: #effbea;
-      color: #1d6514;
+      background: var(--success-background);
+      color: var(--success-text);
       font-weight: 650;
+      line-height: 1.5;
     }
 
     .form-message.visible {
       display: block;
     }
 
-    /* =========================
+    .form-message.error {
+      border-color: var(--error-border);
+      background: var(--error-background);
+      color: var(--error-text);
+    }
+
+    .honeypot-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ========================================
        RESPONSIVE DARSTELLUNG
-    ========================= */
+    ======================================== */
 
     @media (max-width: 1200px) {
       .cards-grid {
@@ -456,14 +498,14 @@
         font-size: clamp(3rem, 11vw, 5.8rem);
       }
 
-      .cards-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 25px;
-      }
-
       .offers-content {
         width: min(100% - 40px, 760px);
         padding: 75px 0;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
       }
 
       .contact-content {
@@ -561,11 +603,14 @@
 
 <body>
 
-  <!-- =========================
+  <!-- ========================================
        SEITE 1
-  ========================== -->
+  ========================================= -->
 
-  <section class="funnel-section hero-section" id="start">
+  <section
+    class="funnel-section hero-section"
+    id="start"
+  >
     <div class="hero-content">
 
       <p class="hero-eyebrow">
@@ -584,7 +629,10 @@
       </p>
 
       <div class="hero-button-wrap">
-        <a class="primary-button" href="#angebote">
+        <a
+          class="primary-button"
+          href="#angebote"
+        >
           Mehr erfahren
         </a>
       </div>
@@ -593,11 +641,14 @@
   </section>
 
 
-  <!-- =========================
+  <!-- ========================================
        SEITE 2
-  ========================== -->
+  ========================================= -->
 
-  <section class="funnel-section offers-section" id="angebote">
+  <section
+    class="funnel-section offers-section"
+    id="angebote"
+  >
     <div class="offers-content">
 
       <h2 class="section-title">
@@ -732,7 +783,10 @@
       </div>
 
       <div class="offers-button-wrap">
-        <a class="primary-button" href="#kontakt">
+        <a
+          class="primary-button"
+          href="#kontakt"
+        >
           Jetzt beraten lassen
         </a>
       </div>
@@ -741,11 +795,14 @@
   </section>
 
 
-  <!-- =========================
+  <!-- ========================================
        SEITE 3
-  ========================== -->
+  ========================================= -->
 
-  <section class="funnel-section contact-section" id="kontakt">
+  <section
+    class="funnel-section contact-section"
+    id="kontakt"
+  >
     <div class="contact-content">
 
       <div class="contact-copy">
@@ -765,7 +822,6 @@
           <div>
             <strong>Telefon</strong>
 
-            <!-- Telefonnummer an beiden Stellen ändern -->
             <a href="tel:+491231231234">
               123-123-1234
             </a>
@@ -774,7 +830,6 @@
           <div>
             <strong>E-Mail</strong>
 
-            <!-- E-Mail-Adresse an beiden Stellen ändern -->
             <a href="mailto:email@email.com">
               email@email.com
             </a>
@@ -784,17 +839,54 @@
 
       </div>
 
-      <form class="contact-form" id="contactForm">
+      <form
+        class="contact-form"
+        id="contactForm"
+        method="POST"
+      >
+
+        <input
+          type="hidden"
+          name="_subject"
+          value="Neue Angebotsanfrage über die Website"
+        >
+
+        <input
+          type="hidden"
+          id="sourceUrl"
+          name="Webseite"
+          value=""
+        >
+
+        <div
+          class="honeypot-field"
+          aria-hidden="true"
+        >
+          <label for="websiteField">
+            Website
+          </label>
+
+          <input
+            type="text"
+            id="websiteField"
+            name="_honey"
+            tabindex="-1"
+            autocomplete="off"
+          >
+        </div>
 
         <div class="form-group">
-          <label class="form-label" for="fullName">
+          <label
+            class="form-label"
+            for="fullName"
+          >
             Vor- und Nachname*
           </label>
 
           <input
             class="form-control"
             id="fullName"
-            name="fullName"
+            name="Vor- und Nachname"
             type="text"
             placeholder="Max Mustermann"
             autocomplete="name"
@@ -803,14 +895,17 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="phone">
+          <label
+            class="form-label"
+            for="phone"
+          >
             Telefonnummer*
           </label>
 
           <input
             class="form-control"
             id="phone"
-            name="phone"
+            name="Telefonnummer"
             type="tel"
             placeholder="0123 4567 8910"
             autocomplete="tel"
@@ -819,14 +914,17 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="email">
+          <label
+            class="form-label"
+            for="email"
+          >
             E-Mail*
           </label>
 
           <input
             class="form-control"
             id="email"
-            name="email"
+            name="E-Mail-Adresse"
             type="email"
             placeholder="max.mustermann@muster.de"
             autocomplete="email"
@@ -835,14 +933,17 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="topics">
+          <label
+            class="form-label"
+            for="topics"
+          >
             Welche Themen sind Ihnen wichtig?
           </label>
 
           <textarea
             class="form-control"
             id="topics"
-            name="topics"
+            name="Ausgewählte Vorsorgethemen"
             placeholder="Wählen Sie ein oder mehrere Themen aus."
             readonly
           ></textarea>
@@ -852,7 +953,8 @@
           <input
             type="checkbox"
             id="privacy"
-            name="privacy"
+            name="Datenschutzeinwilligung"
+            value="Erteilt"
             required
           >
 
@@ -865,6 +967,7 @@
 
         <button
           class="primary-button submit-button"
+          id="submitButton"
           type="submit"
         >
           Angebot anfordern
@@ -875,9 +978,7 @@
           id="formMessage"
           role="status"
           aria-live="polite"
-        >
-          Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.
-        </div>
+        ></div>
 
       </form>
 
@@ -889,17 +990,44 @@
     (() => {
       "use strict";
 
-      /*
-        3 Minuten Inaktivität:
-        3 Minuten × 60 Sekunden × 1.000 Millisekunden
-      */
-      const INACTIVITY_TIME = 3 * 60 * 1000;
+      /* ========================================
+         EINSTELLUNGEN
+      ======================================== */
 
       /*
-        Nach dem Abschicken wird die Bestätigung
-        1,5 Sekunden angezeigt.
+        WICHTIG:
+
+        Ersetze platzhalter@example.com durch die echte
+        E-Mail-Adresse, an die die Anfragen geschickt
+        werden sollen.
+
+        Beispiel:
+        const RECIPIENT_EMAIL = "meineadresse@example.de";
       */
-      const FORM_RESET_DELAY = 1500;
+
+      const RECIPIENT_EMAIL =
+        "platzhalter@example.com";
+
+      /*
+        Der Timer lädt die Website nach drei Minuten
+        ohne Benutzeraktivität neu.
+      */
+
+      const INACTIVITY_TIME =
+        3 * 60 * 1000;
+
+      /*
+        Nach erfolgreichem Versand wird die Bestätigung
+        2,5 Sekunden angezeigt.
+      */
+
+      const SUCCESS_RELOAD_DELAY =
+        2500;
+
+
+      /* ========================================
+         ELEMENTE
+      ======================================== */
 
       const cards =
         document.querySelectorAll(".information-card");
@@ -913,31 +1041,39 @@
       const formMessage =
         document.getElementById("formMessage");
 
+      const submitButton =
+        document.getElementById("submitButton");
+
+      const sourceUrl =
+        document.getElementById("sourceUrl");
+
       let inactivityTimer = null;
       let formWasSubmitted = false;
 
 
-      /*
-        Verhindert, dass der Browser nach einem Neustart
-        wieder an die vorherige Position springt.
-      */
+      /* ========================================
+         SCROLLPOSITION
+      ======================================== */
+
       if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
       }
 
-
-      /*
-        Setzt die Seite an den Anfang zurück.
-      */
-      function moveToTop() {
-        if (window.location.hash) {
-          history.replaceState(
-            null,
-            "",
-            window.location.pathname +
-              window.location.search
-          );
+      function removeHashFromUrl() {
+        if (!window.location.hash) {
+          return;
         }
+
+        history.replaceState(
+          null,
+          "",
+          window.location.pathname +
+            window.location.search
+        );
+      }
+
+      function moveToTop() {
+        removeHashFromUrl();
 
         window.scrollTo({
           top: 0,
@@ -949,13 +1085,6 @@
         document.body.scrollTop = 0;
       }
 
-
-      /*
-        Lädt den Funnel neu.
-
-        Der Hash #angebote oder #kontakt wird entfernt,
-        damit nach dem Neustart Seite 1 angezeigt wird.
-      */
       function reloadFunnel() {
         try {
           sessionStorage.setItem(
@@ -969,57 +1098,47 @@
           );
         }
 
-        if (window.location.hash) {
-          history.replaceState(
-            null,
-            "",
-            window.location.pathname +
-              window.location.search
-          );
-        }
-
+        removeHashFromUrl();
         window.location.reload();
       }
 
+      window.addEventListener(
+        "pageshow",
+        () => {
+          let shouldMoveToTop = false;
 
-      /*
-        Auch bei einer Wiederherstellung aus dem
-        Browser-Zwischenspeicher nach oben springen.
-      */
-      window.addEventListener("pageshow", () => {
-        let shouldMoveToTop = false;
+          try {
+            shouldMoveToTop =
+              sessionStorage.getItem(
+                "openFunnelAtTop"
+              ) === "true";
 
-        try {
-          shouldMoveToTop =
-            sessionStorage.getItem(
-              "openFunnelAtTop"
-            ) === "true";
-
-          if (shouldMoveToTop) {
-            sessionStorage.removeItem(
-              "openFunnelAtTop"
+            if (shouldMoveToTop) {
+              sessionStorage.removeItem(
+                "openFunnelAtTop"
+              );
+            }
+          } catch (error) {
+            console.warn(
+              "Session-Speicher nicht verfügbar:",
+              error
             );
           }
-        } catch (error) {
-          console.warn(
-            "Session-Speicher nicht verfügbar:",
-            error
-          );
+
+          if (
+            shouldMoveToTop ||
+            !window.location.hash
+          ) {
+            requestAnimationFrame(moveToTop);
+          }
         }
-
-        if (
-          shouldMoveToTop ||
-          !window.location.hash
-        ) {
-          requestAnimationFrame(moveToTop);
-        }
-      });
+      );
 
 
-      /*
-        Setzt den 3-Minuten-Timer zurück,
-        sobald eine Aktivität erkannt wird.
-      */
+      /* ========================================
+         INAKTIVITÄTSTIMER
+      ======================================== */
+
       function resetInactivityTimer() {
         if (formWasSubmitted) {
           return;
@@ -1033,10 +1152,6 @@
         );
       }
 
-
-      /*
-        Diese Aktivitäten setzen den Timer zurück.
-      */
       const activityEvents = [
         "pointerdown",
         "pointermove",
@@ -1056,11 +1171,6 @@
         );
       });
 
-
-      /*
-        Beim Zurückkehren auf den Browser-Tab
-        wird der Timer neu gestartet.
-      */
       document.addEventListener(
         "visibilitychange",
         () => {
@@ -1071,22 +1181,27 @@
       );
 
 
-      /*
-        Schreibt ausgewählte Themen automatisch
-        in das Formular.
-      */
-      function updateSelectedTopics() {
-        if (!topicsField) {
-          return;
-        }
+      /* ========================================
+         KACHELAUSWAHL
+      ======================================== */
 
-        const selectedTopics = Array.from(
+      function getSelectedTopics() {
+        return Array.from(
           document.querySelectorAll(
             ".information-card.selected"
           )
         )
           .map((card) => card.dataset.topic)
           .filter(Boolean);
+      }
+
+      function updateSelectedTopics() {
+        if (!topicsField) {
+          return;
+        }
+
+        const selectedTopics =
+          getSelectedTopics();
 
         topicsField.value =
           selectedTopics.join(", ");
@@ -1097,10 +1212,6 @@
             : "Wählen Sie ein oder mehrere Themen aus.";
       }
 
-
-      /*
-        Schaltet eine Informationskachel an oder aus.
-      */
       function toggleCard(card) {
         card.classList.toggle("selected");
 
@@ -1116,11 +1227,13 @@
         resetInactivityTimer();
       }
 
-
       cards.forEach((card) => {
-        card.addEventListener("click", () => {
-          toggleCard(card);
-        });
+        card.addEventListener(
+          "click",
+          () => {
+            toggleCard(card);
+          }
+        );
 
         card.addEventListener(
           "keydown",
@@ -1137,69 +1250,266 @@
       });
 
 
-      /*
-        Formularverarbeitung.
-      */
+      /* ========================================
+         STATUSMELDUNGEN
+      ======================================== */
+
+      function showFormMessage(
+        message,
+        type
+      ) {
+        if (!formMessage) {
+          return;
+        }
+
+        formMessage.textContent = message;
+
+        formMessage.classList.remove(
+          "visible",
+          "error"
+        );
+
+        if (type === "error") {
+          formMessage.classList.add("error");
+        }
+
+        formMessage.classList.add("visible");
+
+        formMessage.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest"
+        });
+      }
+
+      function hideFormMessage() {
+        if (!formMessage) {
+          return;
+        }
+
+        formMessage.classList.remove(
+          "visible",
+          "error"
+        );
+
+        formMessage.textContent = "";
+      }
+
+      function setSubmitButtonLoading(
+        isLoading
+      ) {
+        if (!submitButton) {
+          return;
+        }
+
+        submitButton.disabled = isLoading;
+
+        submitButton.textContent =
+          isLoading
+            ? "Anfrage wird gesendet …"
+            : "Angebot anfordern";
+      }
+
+
+      /* ========================================
+         FORMULARVERSAND
+      ======================================== */
+
       if (contactForm) {
         contactForm.addEventListener(
           "submit",
-          (event) => {
+          async (event) => {
             event.preventDefault();
 
-            /*
-              Pflichtfelder überprüfen.
-            */
+            hideFormMessage();
+
             if (!contactForm.checkValidity()) {
               contactForm.reportValidity();
               resetInactivityTimer();
               return;
             }
 
-            /*
-              Inaktivitätstimer anhalten.
-            */
+            if (
+              RECIPIENT_EMAIL ===
+              "platzhalter@example.com"
+            ) {
+              showFormMessage(
+                "Bitte ersetzen Sie im Code zuerst die Platzhalter-E-Mail-Adresse durch Ihre echte Empfängeradresse.",
+                "error"
+              );
+
+              resetInactivityTimer();
+              return;
+            }
+
             formWasSubmitted = true;
 
             window.clearTimeout(
               inactivityTimer
             );
 
-            /*
-              Bestätigung anzeigen.
-            */
-            if (formMessage) {
-              formMessage.classList.add(
-                "visible"
+            setSubmitButtonLoading(true);
+
+            try {
+              const selectedTopics =
+                getSelectedTopics();
+
+              if (topicsField) {
+                topicsField.value =
+                  selectedTopics.length
+                    ? selectedTopics.join(", ")
+                    : "Keine Kachel ausgewählt";
+              }
+
+              if (sourceUrl) {
+                sourceUrl.value =
+                  window.location.href;
+              }
+
+              const fullName =
+                document
+                  .getElementById("fullName")
+                  .value
+                  .trim();
+
+              const phone =
+                document
+                  .getElementById("phone")
+                  .value
+                  .trim();
+
+              const customerEmail =
+                document
+                  .getElementById("email")
+                  .value
+                  .trim();
+
+              const honeypot =
+                document
+                  .getElementById("websiteField")
+                  .value
+                  .trim();
+
+              /*
+                Wenn das unsichtbare Feld ausgefüllt wurde,
+                handelt es sich wahrscheinlich um einen Bot.
+              */
+
+              if (honeypot !== "") {
+                throw new Error(
+                  "Spamprüfung fehlgeschlagen."
+                );
+              }
+
+              const endpoint =
+                "https://formsubmit.co/ajax/" +
+                encodeURIComponent(
+                  RECIPIENT_EMAIL
+                );
+
+              const submissionData = {
+                "_subject":
+                  "Neue Angebotsanfrage über die Website",
+
+                "Vor- und Nachname":
+                  fullName,
+
+                "Telefonnummer":
+                  phone,
+
+                "E-Mail-Adresse":
+                  customerEmail,
+
+                "Ausgewählte Vorsorgethemen":
+                  selectedTopics.length
+                    ? selectedTopics.join(", ")
+                    : "Keine Kachel ausgewählt",
+
+                "Datenschutzeinwilligung":
+                  "Erteilt",
+
+                "Webseite":
+                  window.location.href
+              };
+
+              const response =
+                await fetch(
+                  endpoint,
+                  {
+                    method: "POST",
+
+                    headers: {
+                      "Content-Type":
+                        "application/json",
+
+                      "Accept":
+                        "application/json"
+                    },
+
+                    body: JSON.stringify(
+                      submissionData
+                    )
+                  }
+                );
+
+              let responseData = null;
+
+              try {
+                responseData =
+                  await response.json();
+              } catch (jsonError) {
+                responseData = null;
+              }
+
+              if (!response.ok) {
+                throw new Error(
+                  responseData &&
+                  responseData.message
+                    ? responseData.message
+                    : "Der Versanddienst hat die Anfrage nicht angenommen."
+                );
+              }
+
+              showFormMessage(
+                "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.",
+                "success"
               );
 
-              formMessage.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest"
-              });
+              window.setTimeout(
+                reloadFunnel,
+                SUCCESS_RELOAD_DELAY
+              );
+            } catch (error) {
+              console.error(
+                "Fehler beim Formularversand:",
+                error
+              );
+
+              formWasSubmitted = false;
+              setSubmitButtonLoading(false);
+
+              showFormMessage(
+                "Die Anfrage konnte leider nicht gesendet werden. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+                "error"
+              );
+
+              resetInactivityTimer();
             }
-
-            /*
-              Hinweis:
-              Hier muss später ein echter
-              Formularversand eingebaut werden.
-
-              Aktuell wird nur die Bestätigung
-              angezeigt und danach neu geladen.
-            */
-
-            window.setTimeout(
-              reloadFunnel,
-              FORM_RESET_DELAY
-            );
           }
         );
       }
 
 
-      /*
-        Website initialisieren.
-      */
+      /* ========================================
+         INITIALISIERUNG
+      ======================================== */
+
       updateSelectedTopics();
+
+      if (sourceUrl) {
+        sourceUrl.value =
+          window.location.href;
+      }
+
       resetInactivityTimer();
     })();
   </script>
